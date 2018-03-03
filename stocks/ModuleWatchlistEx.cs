@@ -118,38 +118,58 @@ namespace dashboard
 
         private static string GetJson(string sym)
         {
-            // System.Uri.EscapeUriString();
-            string response = HttpGet("https://www.nseindia.com/marketinfo/companyTracker/ajaxquote.jsp?symbol=" + sym);
-
-            if (response.Equals("No Data Found."))
+            try
             {
-                return null;
+                sym = sym.Replace("&", "%26");
+                string response = HttpGet("https://www.nseindia.com/marketinfo/companyTracker/ajaxquote.jsp?symbol=" + sym);
+
+                if (response.Equals("No Data Found."))
+                {
+                    return null;
+                }
+
+                if (string.IsNullOrEmpty(response))
+                {
+                    return GetJsonEx(sym);
+                }
+
+                string[] items = response.Split(':');
+                items[16] = items[16].Replace(",", string.Empty);
+
+                string result = string.Format("{{\"data\":[{{\"high52\":\"{0}\",\"low52\":\"{1}\",\"dayHigh\":\"{2}\",\"dayLow\":\"{3}\",\"averagePrice\":\"{4}\",\"lastPrice\":\"{5}\",\"change\":\"{6}\",\"pChange\":\"{7}\",\"totalTradedVolume\":\"{8}\",\"totalTradedValue\":\"{9}\",\"previousClose\":\"{10}\"}}]}}",
+                    items[6], items[7], items[10], items[11], items[12],
+                    items[13], items[14], items[15], items[16], items[17], items[8]);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("error: " + sym);
+            }
+            return null;
+        }
+
+        private static string GetJsonEx(string sym)
+        {
+            try
+            {
+                string tok1 = "<div id=\"responseDiv\" style=\"display:none\">";
+                string tok2 = "</div>";
+                string response = HttpGet("https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/GetQuote.jsp?symbol=" + sym + "&illiquid=0&smeFlag=0&itpFlag=0");
+
+                int i = response.IndexOf(tok1) + tok1.Length;
+                string substr1 = response.Substring(i, response.Length - i);
+
+                int j = substr1.IndexOf(tok2);
+                return substr1.Substring(0, j).Trim();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("error: " + sym);
             }
 
-            string[] items = response.Split(':');
-            items[16] = items[16].Replace(",", string.Empty);
-
-            string result = string.Format("{{\"data\":[{{\"high52\":\"{0}\",\"low52\":\"{1}\",\"dayHigh\":\"{2}\",\"dayLow\":\"{3}\",\"averagePrice\":\"{4}\",\"lastPrice\":\"{5}\",\"change\":\"{6}\",\"pChange\":\"{7}\",\"totalTradedVolume\":\"{8}\",\"totalTradedValue\":\"{9}\",\"previousClose\":\"{10}\"}}]}}",
-                items[6], items[7], items[10], items[11], items[12],
-                items[13], items[14], items[15], items[16], items[17], items[8]);
-
-            return result;
+            return null;
         }
-
-        /*
-        private static string GetJson(string sym)
-        {
-            string tok1 = "<div id=\"responseDiv\" style=\"display:none\">";
-            string tok2 = "</div>";
-            string response = HttpGet("https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/GetQuote.jsp?symbol=" + sym + "&illiquid=0&smeFlag=0&itpFlag=0");
-
-            int i = response.IndexOf(tok1) + tok1.Length;
-            string substr1 = response.Substring(i, response.Length - i);
-
-            int j = substr1.IndexOf(tok2);
-            return substr1.Substring(0, j).Trim();
-        }
-        */
 
         public override void ProcessFunctionKeyEx(ConsoleKey key)
         {
@@ -206,6 +226,7 @@ namespace dashboard
 
             int ind = 1;
             categoriesNames = System.IO.Directory.GetFiles("../../" + folderName + "/").Select(d => d.Replace("../../" + folderName + "/", "")).ToArray();
+            maxPages = categoriesNames.Length;
 
             foreach (string category in categoriesNames)
             {
@@ -223,7 +244,7 @@ namespace dashboard
 
         public static void ShowSymbol(object sym)
         {
-            var json1 = GetJson(((string)sym).Replace("&", "%26"));
+            var json1 = GetJson((string)sym);
             if (string.IsNullOrEmpty(json1)) { return; }
 
             var url2 = "https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/companySnapshot/getFinancialResults" + sym + ".json";
@@ -305,6 +326,14 @@ namespace dashboard
                 fiItems.results0.reDilEPS = "0";
             }
 
+            if (w52.Contains("<··"))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            }
+            if (w52.Contains("<···"))
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
             if (float.Parse(fiItems.results0.reDilEPS) < 0 || float.Parse(fiItems.results0.proLossAftTax.Replace(",", "")) < 0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -338,7 +367,7 @@ namespace dashboard
 
             activeSubPageId = subPageid;
 
-            int maxItem = 36;
+            int maxItem = 30;
             maxSubPages = (symbols.Length / maxItem) + ((symbols.Length % maxItem > 0) ? 1 : 0);
             int firstPage = ((activeSubPageId * maxItem) - maxItem + 1);
             int lastPage = ((activeSubPageId * maxItem) > symbols.Length) ? symbols.Length : (activeSubPageId * maxItem);
