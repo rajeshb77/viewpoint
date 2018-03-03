@@ -176,7 +176,7 @@ namespace dashboard
 
         public static void ShowSymbol(object sym)
         {
-            var json1 = GetJson((string)sym);
+            var json1 = GetJson(((string)sym).Replace("&", "%26"));
             if (string.IsNullOrEmpty(json1)) { return; }
 
             var url2 = "https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/companySnapshot/getFinancialResults" + sym + ".json";

@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Net;
 using System.IO;
+using System.Web;
 
 namespace dashboard
 {
@@ -115,6 +116,7 @@ namespace dashboard
 
         private static string GetJson(string sym)
         {
+            // System.Uri.EscapeUriString();
             string response = HttpGet("https://www.nseindia.com/marketinfo/companyTracker/ajaxquote.jsp?symbol=" + sym);
 
             if (response.Equals("No Data Found."))
@@ -219,7 +221,7 @@ namespace dashboard
 
         public static void ShowSymbol(object sym)
         {
-            var json1 = GetJson((string)sym);
+            var json1 = GetJson(((string)sym).Replace("&", "%26"));
             if (string.IsNullOrEmpty(json1)) { return; }
 
             var url2 = "https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/companySnapshot/getFinancialResults" + sym + ".json";

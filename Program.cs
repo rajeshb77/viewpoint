@@ -9,7 +9,7 @@ namespace dashboard
     {
         public static Module homeScreen;
         static void Main(string[] args)
-        {           
+        {
             InitializeMenu();
             Console.ReadLine();
         }
