@@ -206,7 +206,7 @@ namespace dashboard
             Console.WriteLine(System.DateTime.Now);
             Console.ResetColor();
 
-            string[] symbols = System.IO.File.ReadAllLines("watchlist.txt");
+            string[] symbols = System.IO.File.ReadAllLines("../../folio/mywatchlist");
 
             activeSubPageId = subPageid;
 

@@ -214,7 +214,7 @@ namespace dashboard
             Console.WriteLine(System.DateTime.Now);
             Console.ResetColor();
 
-            string[] symbols = System.IO.File.ReadAllLines("../../folio/folio.txt");
+            string[] symbols = System.IO.File.ReadAllLines("../../folio/myfolio");
 
             activeSubPageId = subPageid;
 

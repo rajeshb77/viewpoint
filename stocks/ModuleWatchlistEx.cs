@@ -330,7 +330,7 @@ namespace dashboard
                 pageid = 1;
             }
 
-            string[] symbols = System.IO.File.ReadAllLines("..\\..\\watchlist\\" + categoriesNames[pageid]);
+            string[] symbols = System.IO.File.ReadAllLines("../../watchlist/" + categoriesNames[pageid]);
 
             activeSubPageId = subPageid;
 
