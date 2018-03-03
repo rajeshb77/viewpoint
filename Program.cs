@@ -31,7 +31,7 @@ namespace dashboard
 
             Module modNifty = new ModuleStocksMarket("Nifty");
             Module modPortfolio = new ModulePortfolio("My Portfolio");
-            Module modWatchList = new ModuleWatchlistEx("My Watchlist");
+            Module modWatchList = new ModuleWatchlistEx("SmallCase");
 
             Module modScreener = new Module("Screener");
 

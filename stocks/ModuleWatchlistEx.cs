@@ -108,10 +108,12 @@ namespace dashboard
         }
 
         public string[] categoriesNames = null;
+        public string folderName = string.Empty;
 
         public ModuleWatchlistEx(string name)
             : base(name, true)
         {
+            folderName = name;
         }
 
         private static string GetJson(string sym)
@@ -203,7 +205,7 @@ namespace dashboard
             Console.WriteLine("------------------------------------------------------------------------------------------");
 
             int ind = 1;
-            categoriesNames = System.IO.Directory.GetFiles("..\\..\\watchlist\\").Select(d => d.Replace("..\\..\\watchlist\\", "")).ToArray();
+            categoriesNames = System.IO.Directory.GetFiles("../../" + folderName + "/").Select(d => d.Replace("../../" + folderName + "/", "")).ToArray();
 
             foreach (string category in categoriesNames)
             {
@@ -332,11 +334,11 @@ namespace dashboard
                 pageid = 1;
             }
 
-            string[] symbols = System.IO.File.ReadAllLines("../../watchlist/" + categoriesNames[pageid]);
+            string[] symbols = System.IO.File.ReadAllLines("../../" + folderName + "/" + categoriesNames[pageid]);
 
             activeSubPageId = subPageid;
 
-            int maxItem = 40;
+            int maxItem = 36;
             maxSubPages = (symbols.Length / maxItem) + ((symbols.Length % maxItem > 0) ? 1 : 0);
             int firstPage = ((activeSubPageId * maxItem) - maxItem + 1);
             int lastPage = ((activeSubPageId * maxItem) > symbols.Length) ? symbols.Length : (activeSubPageId * maxItem);
