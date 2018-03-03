@@ -321,6 +321,12 @@ namespace dashboard
                 w52 = "·····";
             }
 
+            if(fiItems.results0 == null)
+            {
+                fiItems.results0 = new fiData();
+                fiItems.results0.proLossAftTax = "";
+            }
+
             if (string.IsNullOrEmpty(fiItems.results0.reDilEPS))
             {
                 fiItems.results0.reDilEPS = "0";
@@ -334,20 +340,25 @@ namespace dashboard
             {
                 Console.ForegroundColor = ConsoleColor.Green;
             }
-            if (float.Parse(fiItems.results0.reDilEPS) < 0 || float.Parse(fiItems.results0.proLossAftTax.Replace(",", "")) < 0)
+            try
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
+                if (float.Parse(fiItems.results0.reDilEPS) < 0 || float.Parse(fiItems.results0.proLossAftTax.Replace(",", "")) < 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+                Console.WriteLine(format, (((Newtonsoft.Json.Linq.JContainer)(Module.peItems)))[sym]["PE"].ToString().Trim(),
+                    fiItems.results0.reDilEPS, quItems.data[0].change, quItems.data[0].pChange,
+                    sym, quItems.data[0].lastPrice, quItems.data[0].averagePrice,
+                    quItems.data[0].dayHigh, quItems.data[0].dayLow,
+                    quItems.data[0].high52, quItems.data[0].low52,
+                    quItems.data[0].totalTradedVolume, quItems.data[0].totalTradedValue,
+                    fiItems.results0.income, fiItems.results0.proLossAftTax, tt, w52);
+
+                Console.ResetColor();
             }
-
-            Console.WriteLine(format, (((Newtonsoft.Json.Linq.JContainer)(Module.peItems)))[sym]["PE"].ToString().Trim(),
-                fiItems.results0.reDilEPS, quItems.data[0].change, quItems.data[0].pChange,
-                sym, quItems.data[0].lastPrice, quItems.data[0].averagePrice,
-                quItems.data[0].dayHigh, quItems.data[0].dayLow,
-                quItems.data[0].high52, quItems.data[0].low52,
-                quItems.data[0].totalTradedVolume, quItems.data[0].totalTradedValue,
-                fiItems.results0.income, fiItems.results0.proLossAftTax, tt, w52);
-
-            Console.ResetColor();
+            catch (Exception e) {
+                Console.WriteLine("error: " + sym);
+            }
         }
 
         public void ShowSubPage(int pageid, int subPageid)

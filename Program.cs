@@ -10,6 +10,8 @@ namespace dashboard
         public static Module homeScreen;
         static void Main(string[] args)
         {
+            string s = "".Replace(",", "");
+            
             InitializeMenu();
             Console.ReadLine();
         }
