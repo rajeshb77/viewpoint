@@ -5,7 +5,7 @@ using System.Net;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace dashboard
+namespace viewpoint
 {
     public class ModuleCollections<T> where T : ModuleCollections<T>
     {

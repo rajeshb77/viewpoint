@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace dashboard
+namespace viewpoint
 {
     class ModuleTech : Module
     {
@@ -135,22 +135,27 @@ namespace dashboard
             maxSubPages = macdItem.pageSummary.totalPages;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("{0,9}  {1,9} {2,12} {3,9} {4,15} {5,15}",
+            Console.WriteLine(" {0,9}  {1,9} {2,12} {3,9} {4,15} {5,15}",
                 "chg", "chg %", "symbol", "ltp", "prev", "vol");
             Console.ResetColor();
 
             foreach (var s in macdItem.searchResult)
             {
-                Console.Write("{0,9}", s.absoluteChange);
+                Console.Write(" {0,9}", s.absoluteChange, "*");
                 Console.ForegroundColor = (float.Parse(s.absoluteChange) > 0 ? ConsoleColor.Green : ConsoleColor.Red);
                 Console.Write("{0,9} %", ((float.Parse(s.absoluteChange) >= 0) ? " +" : " ") + float.Parse(s.percentageChange).ToString("n2"));
                 Console.ResetColor();
 
+                string sym = s.scripCode.Substring(0, s.scripCode.Length - 2);
+                Console.ForegroundColor = Utility.findMySymbol(sym) ? ConsoleColor.White : ConsoleColor.DarkGray;
+
                 Console.WriteLine(" {0,12} {1,9} {2,15} {3,15}",
-                    s.scripCode.Substring(0, s.scripCode.Length - 1),
+                    sym,
                     float.Parse(s.currentPrice).ToString("n2"),
                     float.Parse(s.previousClose).ToString("n2"),
                     s.volume);
+
+                Console.ResetColor();
             }
 
             Console.WriteLine("------------------------------------------------------------------------------------------");

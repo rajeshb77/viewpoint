@@ -7,7 +7,7 @@ using System.Net;
 using System.IO;
 using System.Web;
 
-namespace dashboard
+namespace viewpoint
 {
     public class ModuleWatchlistEx : Module
     {

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace dashboard
+namespace viewpoint
 {
     class Program
     {
         public static Module homeScreen;
         static void Main(string[] args)
         {
-            string s = "".Replace(",", "");
+            Utility.loadMySymbols("smallcase");
             
             InitializeMenu();
             Console.ReadLine();

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.IO;
 
-namespace dashboard
+namespace viewpoint
 {
     public class ModuleWatchlist : Module
     {
