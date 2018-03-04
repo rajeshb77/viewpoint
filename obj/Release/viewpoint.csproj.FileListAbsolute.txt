@@ -1,0 +1,4 @@
+D:\GitHub\viewpoint\bin\Release\viewpoint.exe
+D:\GitHub\viewpoint\bin\Release\Newtonsoft.Json.dll
+D:\GitHub\viewpoint\obj\Release\ResolveAssemblyReference.cache
+D:\GitHub\viewpoint\obj\Release\viewpoint.exe
