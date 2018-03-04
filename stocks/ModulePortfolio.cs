@@ -104,9 +104,7 @@ namespace viewpoint
             public string income;
             public string reDilEPS;
             public string toDate;
-        }
-
-        
+        }        
 
         public ModulePortfolio(string name)
             : base(name, true)

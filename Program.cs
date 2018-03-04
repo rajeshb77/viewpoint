@@ -10,8 +10,6 @@ namespace viewpoint
         public static Module homeScreen;
         static void Main(string[] args)
         {
-            Utility.loadMySymbols("smallcase");
-            
             InitializeMenu();
             Console.ReadLine();
         }
@@ -33,7 +31,8 @@ namespace viewpoint
 
             Module modNifty = new ModuleStocksMarket("Nifty");
             Module modPortfolio = new ModulePortfolio("My Portfolio");
-            Module modWatchList = new ModuleWatchlistEx("SmallCase");
+            Module modSmallCase = new ModuleWatchlistEx("SmallCase");
+            Module modTop100 = new ModuleWatchlistEx("top 100");
 
             Module modScreener = new Module("Screener");
 
@@ -42,7 +41,8 @@ namespace viewpoint
             Module modValVol = new ModuleStocksQtyVal("Active Securities");
 
             modStocks.AddMenu(modPortfolio);
-            modStocks.AddMenu(modWatchList);
+            modStocks.AddMenu(modSmallCase);
+            modStocks.AddMenu(modTop100);            
             modStocks.AddMenu(modNifty);
             modStocks.AddMenu(modScreener);
             modStocks.AddMenu(mod52Weeks);
