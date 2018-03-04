@@ -32,7 +32,7 @@ namespace viewpoint
             Module modNifty = new ModuleStocksMarket("Nifty");
             Module modPortfolio = new ModulePortfolio("My Portfolio");
             Module modSmallCase = new ModuleWatchlistEx("SmallCase");
-            Module modTop100 = new ModuleWatchlistEx("top 100");
+            Module modTop100 = new ModuleWatchlistEx("top companies");
 
             Module modScreener = new Module("Screener");
 
