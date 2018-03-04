@@ -244,13 +244,12 @@ namespace viewpoint
                 Console.Write("{0,9}", s.iislPtsChange);
                 Console.ForegroundColor = (float.Parse(s.iislPtsChange) > 0 ? ConsoleColor.Green : ConsoleColor.Red);
                 Console.Write("{0} %", ((float.Parse(s.iislPtsChange) >= 0) ? " +" : " ") + s.iislPercChange);
-                Console.ResetColor();
-
+                Console.ForegroundColor = Utility.findMySymbol(s.symbol) ? ConsoleColor.White : ConsoleColor.DarkGray;
                 Console.WriteLine("{0,12}{1,5}{2,6} {3,9} {6,8} {7,6:N2} % {8,6:N2} % ",
                     s.symbol, tt, w52, s.ltP, s.iislPtsChange, s.iislPercChange,
                     s.trdVol,
                     dl, dh);
-
+                Console.ResetColor();
                 //Console.WriteLine("{0,12}{1,5}{2,6} {3,9} {4,9} {5,9} % {6,8} :VOL {7,6:N2} % {8,6:N2} % ",
                 //    s.symbol, tt, w52, s.ltP, s.iislPtsChange, s.iislPercChanges.iislPercChange
                 //    s.trdVol,

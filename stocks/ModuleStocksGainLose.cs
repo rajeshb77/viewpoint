@@ -94,10 +94,10 @@ namespace viewpoint
             {
                 Console.ForegroundColor = (float.Parse(s.netPrice) > 0 ? ConsoleColor.Green : ConsoleColor.Red);
                 Console.Write("{0,9} %", ((float.Parse(s.netPrice) >= 0) ? " +" : " ") + s.netPrice.Trim());
-                Console.ResetColor();
-
+                Console.ForegroundColor = Utility.findMySymbol(s.symbol) ? ConsoleColor.White : ConsoleColor.DarkGray;
                 Console.WriteLine(" {0,12} {1,9} {2,15} {3,15}", s.symbol, s.ltp,
                     s.tradedQuantity, s.turnoverInLakhs);
+                Console.ResetColor();
             }
 
             Console.WriteLine("------------------------------------------------------------------------------------------");

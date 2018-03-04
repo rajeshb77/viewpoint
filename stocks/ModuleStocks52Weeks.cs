@@ -79,10 +79,10 @@ namespace viewpoint
                 Console.Write("{0,9}", s.pChange.Trim());
                 Console.ForegroundColor = (float.Parse(s.pChange) > 0 ? ConsoleColor.Green : ConsoleColor.Red);
                 Console.Write("{0,9} %", ((float.Parse(s.pChange) >= 0) ? " +" : " ") + s.change.Trim());
-                Console.ResetColor();
-
+                Console.ForegroundColor = Utility.findMySymbol(s.symbol) ? ConsoleColor.White : ConsoleColor.DarkGray;
                 Console.WriteLine(" {0,12} {1,9} {2,9} {3,9} {4,15}", s.symbol, s.ltp,
                     s.value, s.value_old, s.dt);
+                Console.ResetColor();
             }
 
             Console.WriteLine("------------------------------------------------------------------------------------------");
