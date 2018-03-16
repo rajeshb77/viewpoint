@@ -10,6 +10,10 @@ namespace viewpoint
         public static Module homeScreen;
         static void Main(string[] args)
         {
+            // Utility.ajaxCompanySearch("D:/GitHub/mf.txt", "D:/GitHub/mf-out.txt");
+            // return;
+
+            Utility.loadMySymbols("smallcase");
             InitializeMenu();
             Console.ReadLine();
         }

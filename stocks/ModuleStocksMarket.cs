@@ -195,7 +195,7 @@ namespace viewpoint
                 {
                     var wklo = float.Parse(s.wklo);
                     var lo = float.Parse(s.low);
-                    if ((lo <= (1.10 * wklo)) && (lo >= (1.05 * wklo)))
+                    if ((lo <= (1.10 * wklo)) && (lo >= (1.07 * wklo)))
                     {
                         w52l = "···<·";
                     }
@@ -236,7 +236,7 @@ namespace viewpoint
                 }
 
                 string w52 = w52h + w52l;
-                if (string.IsNullOrEmpty(w52))
+                if (string.IsNullOrEmpty(w52) || w52.Length > 5)
                 {
                     w52 = "·····";
                 }
@@ -244,7 +244,24 @@ namespace viewpoint
                 Console.Write("{0,9}", s.iislPtsChange);
                 Console.ForegroundColor = (float.Parse(s.iislPtsChange) > 0 ? ConsoleColor.Green : ConsoleColor.Red);
                 Console.Write("{0} %", ((float.Parse(s.iislPtsChange) >= 0) ? " +" : " ") + s.iislPercChange);
-                Console.ForegroundColor = Utility.findMySymbol(s.symbol) ? ConsoleColor.White : ConsoleColor.DarkGray;
+
+                if (Utility.findMySymbol(s.symbol))
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    if (w52.Contains("<··"))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                    }
+                    if (w52.Contains("<···"))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                }
+                else 
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+
                 Console.WriteLine("{0,12}{1,5}{2,6} {3,9} {6,8} {7,6:N2} % {8,6:N2} % ",
                     s.symbol, tt, w52, s.ltP, s.iislPtsChange, s.iislPercChange,
                     s.trdVol,

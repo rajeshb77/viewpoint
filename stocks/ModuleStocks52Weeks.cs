@@ -40,6 +40,7 @@ namespace viewpoint
         {
             maxPages = categoriesNames.Length;
         }
+
         public override void ShowPage(int pageid)
         {
             this.activePageId = pageid;

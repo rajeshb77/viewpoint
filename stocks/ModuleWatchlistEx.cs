@@ -275,7 +275,7 @@ namespace viewpoint
             {
                 var wklo = float.Parse(quItems.data[0].low52);
                 var lo = float.Parse(quItems.data[0].dayLow);
-                if ((lo <= (1.10 * wklo)) && (lo >= (1.05 * wklo)))
+                if ((lo <= (1.10 * wklo)) && (lo >= (1.07 * wklo)))
                 {
                     w52l = "···<·";
                 }
@@ -324,7 +324,7 @@ namespace viewpoint
             if(fiItems.results0 == null)
             {
                 fiItems.results0 = new fiData();
-                fiItems.results0.proLossAftTax = "";
+                fiItems.results0.proLossAftTax = "0";
             }
 
             if (string.IsNullOrEmpty(fiItems.results0.reDilEPS))
@@ -332,9 +332,9 @@ namespace viewpoint
                 fiItems.results0.reDilEPS = "0";
             }
 
-            if (w52.Contains("<··"))
+            if (w52.Contains("<·"))
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Cyan;
             }
             if (w52.Contains("<···"))
             {
